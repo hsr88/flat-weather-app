@@ -1,74 +1,58 @@
-# ☁️ pogoda.city - Nowoczesna Aplikacja Pogodowa
+# Pogoda.city - Oficjalna Aplikacja 🌤️
 
-![Status Projektu](https://img.shields.io/badge/Status-Completed-success)
-![Tech Stack](https://img.shields.io/badge/Tech-HTML%20%7C%20CSS%20%7C%20JS-blue)
+![Wersja](https://img.shields.io/badge/version-1.0.0-blue)
+![Platforma](https://img.shields.io/badge/platform-PWA%20%7C%20Android%20%7C%20iOS-green)
+![Status](https://img.shields.io/badge/Status-Production-success)
 
-Nowoczesna, w pełni responsywna aplikacja pogodowa wykorzystująca **OpenWeatherMap API**. Projekt wyróżnia się stylem **Glassmorphism** (efekt mrożonego szkła) oraz dynamicznymi tłami, które zmieniają się w zależności od pory dnia i warunków atmosferycznych.
+**Pogoda.city** to nowoczesna, minimalistyczna aplikacja pogodowa typu PWA (Progressive Web App), zaprojektowana z myślą o szybkości, prywatności i estetyce. Aplikacja wkrótce dostępna w sklepie **Google Play**.
 
-👉 **[ZOBACZ DEMO ONLINE (LIVE PREVIEW)](http://pogoda.city/)**
-
----
-
-## 📸 Podgląd (Screenshots)
-
-<img width="984" height="913" alt="Zrzut ekranu 2025-11-29 172759" src="https://github.com/user-attachments/assets/981829dc-cbe5-46e6-8068-06967ac6489b" />
-
-
+👉 **[ZOBACZ WERSJĘ WEBOWĄ](https://pogoda.city)**
 
 ---
 
-## 🚀 Główne Funkcje
+## 📱 Funkcje Aplikacji
 
-* **📍 Automatyczna Geolokalizacja:** Aplikacja wykrywa położenie użytkownika przy starcie i ładuje lokalną pogodę.
-* **Fallback (Zabezpieczenie):** W przypadku braku zgody na lokalizację, domyślnie ładuje pogodę dla Warszawy.
-* **🎨 Dynamiczne Tła:** Tło strony zmienia się automatycznie (Dzień/Noc, Deszcz, Śnieg, Słońce).
-* **🧊 Glassmorphism UI:** Nowoczesny interfejs z efektem rozmycia tła (`backdrop-filter`).
-* **✨ Mikro-interakcje:** Animowane ikony pogodowe (pływające chmury, obracające się słońce) stworzone w czystym CSS.
-* **📅 Data i Czas:** Wyświetla aktualny dzień tygodnia i pełną datę w języku polskim.
-* **🌡️ Szczegółowe Dane:** Temperatura rzeczywista, odczuwalna ("Feels like"), wilgotność oraz prędkość wiatru.
+Aplikacja została zbudowana jako rozwiązanie "Privacy First" – bez śledzenia lokalizacji przez podmioty trzecie.
 
----
-
-## 🛠️ Użyte Technologie
-
-Projekt został zrealizowany w czystym kodzie (Vanilla JS), bez użycia zewnętrznych frameworków, aby pokazać solidne podstawy front-endowe.
-
-* **HTML5** (Semantyczna struktura)
-* **CSS3** (Flexbox, CSS Variables, Keyframes Animations, Media Queries, Glassmorphism effect)
-* **JavaScript (ES6+)**
-    * `Fetch API` & `Async/Await` (Asynchroniczne pobieranie danych)
-    * `Geolocation API` (Obsługa GPS)
-    * DOM Manipulation
-* **API:** [OpenWeatherMap](https://openweathermap.org/) (Darmowy plan)
-* **Ikony:** Phosphor Icons & Flaticon
+### Główne możliwości:
+* **📍 Inteligentna Geolokalizacja:** Automatyczne wykrywanie miasta z opcją ręcznego wpisywania.
+* **☁️ Prognoza Długoterminowa:** Szczegółowa prognoza godzinowa (24h) oraz na kolejne 5 dni.
+* **🍃 Monitoring Smogu (AQI):** Wskaźnik jakości powietrza w czasie rzeczywistym.
+* **🎨 Dynamiczny Design:** Tła zmieniające się w zależności od pory dnia i pogody (Glassmorphism UI).
+* **🌗 Tryb Ciemny:** Pełne wsparcie dla Dark Mode.
+* **🌅 Astronomia:** Dokładne czasy wschodu i zachodu słońca.
+* **💾 Personalizacja:** Zapisywanie ulubionych miast i ustawień (jednostki °C/°F) w pamięci urządzenia.
 
 ---
 
-## ⚙️ Jak uruchomić lokalnie?
+## 🛠️ Technologie
 
-Jeśli chcesz pobrać ten projekt na swój komputer:
+Projekt stworzony w oparciu o nowoczesne standardy webowe, działający jako natywna aplikacja dzięki technologii **TWA (Trusted Web Activity)**.
 
-1.  Sklonuj repozytorium:
-    ```bash
-    git clone [https://github.com/hsr88/flat-weather-app.git](https://github.com/hsr88/flat-weather-app.git)
-    ```
-2.  Otwórz folder w edytorze kodu (np. VS Code).
-3.  **Ważne:** Aby działała geolokalizacja, użyj rozszerzenia **Live Server** (lub innego lokalnego serwera), ponieważ przeglądarki blokują GPS dla plików otwieranych bezpośrednio z dysku (`file://`).
-4.  W pliku `script.js` podmień klucz API na własny (opcjonalnie, obecny jest wersją demonstracyjną).
+* **Core:** Vanilla JavaScript (ES6+), HTML5, CSS3 (CSS Variables, Flexbox/Grid).
+* **API:** OpenWeatherMap (REST API).
+* **PWA:** Service Worker (Offline support), Web App Manifest.
+* **Design:** Custom Glassmorphism UI, Phosphor Icons.
 
 ---
 
-## 🔮 Plany na rozwój (To-Do)
+## 📸 Zrzuty Ekranu
 
-* [ ] Dodanie prognozy na kolejne 5 dni.
-* [ ] Możliwość zmiany jednostek (Celsjusz / Fahrenheit).
-* [ ] Tryb ciemny (Dark Mode) przełączany ręcznie.
 
----
+<img width="587" height="944" alt="Zrzut ekranu 2025-11-29 204913" src="https://github.com/user-attachments/assets/a2904bf9-77d9-40d1-9ae2-20f400bab21c" />
 
-## 📄 Licencja
-
-Ten projekt jest dostępny na licencji MIT - możesz go swobodnie używać i modyfikować w celach edukacyjnych i komercyjnych.
+<img width="623" height="900" alt="Zrzut ekranu 2025-11-29 205006" src="https://github.com/user-attachments/assets/ca2ff875-c407-4740-897b-2baec8f926be" />
 
 ---
-Stworzone przez [hsr88]
+
+## ⚠️ Prawa Autorskie i Licencja (Copyright)
+
+© 2025 **hsr88**. Wszelkie prawa zastrzeżone.
+
+Kod źródłowy, projekt graficzny oraz nazwa aplikacji są własnością intelektualną autora.
+**Kopiowanie, modyfikowanie, rozpowszechnianie lub wykorzystywanie kodu w celach komercyjnych i prywatnych bez wyraźnej, pisemnej zgody autora jest zabronione.**
+
+Aplikacja służy jako projekt demonstracyjny w portfolio autora oraz jako produkt komercyjny.
+
+---
+**Kontakt:** [Twój Profil GitHub](https://github.com/hsr88)
