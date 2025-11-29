@@ -1,318 +1,301 @@
-/* --- 1. RESET I PODSTAWY --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* ============================================================
+   1. ZMIENNE I RESET
+============================================================ */
+:root {
+    --text-color: #fff;
+    --card-bg: rgba(255, 255, 255, 0.15);
+    --card-border: rgba(255, 255, 255, 0.3);
+    --search-bg: rgba(255, 255, 255, 0.3);
+    --accent-color: #00bcd4;
+    --sidebar-bg: #fff;
+    --sidebar-text: #333;
+    
+    /* Kolory AQI */
+    --aqi-good: #00e676;
+    --aqi-fair: #c6ff00;
+    --aqi-moderate: #ffea00;
+    --aqi-poor: #ff9100;
+    --aqi-very-poor: #ff1744;
+}
+
+/* TRYB CIEMNY (Wymuszony) */
+body.forced-dark-mode {
+    --text-color: #eee;
+    --card-bg: rgba(0, 0, 0, 0.5) !important;
+    --card-border: rgba(255, 255, 255, 0.1) !important;
+    --search-bg: rgba(0, 0, 0, 0.5) !important;
+    --sidebar-bg: #1a1a1a !important;
+    --sidebar-text: #eee !important;
+    background: linear-gradient(to top, #30cfd0 0%, #330867 100%) !important;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; 
+/* 🔥 USUWA NIEBIESKIE PODŚWIETLENIE NA ANDROIDZIE */
+    -webkit-tap-highlight-color: transparent;
+    
+    /* 🔥 USUWA MOŻLIWOŚĆ ZAZNACZANIA TEKSTU (JAK W APCE) */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE10+/Edge */
+    user-select: none;         /* Standard */
+}input, textarea {
+    -webkit-user-select: auto !important;
+    user-select: auto !important;
 }
 
 body {
-    /* Domyślne tło (niebieski gradient) */
     background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    
-    /* Płynne przejścia kolorów tła */
-    transition: background 1.5s ease-in-out; 
+    min-height: 100vh; padding: 20px; padding-top: 80px;
+    display: flex; justify-content: center; align-items: center;
+    transition: background 1s ease; overflow-x: hidden;
 }
 
-/* --- 2. DYNAMICZNE TŁA (Klasy dodawane przez JS) --- */
-body.sunny {
-    background: linear-gradient(120deg, #f6d365 0%, #fda085 100%); /* Pomarańcz */
+/* DYNAMICZNE TŁA (Gdy brak Dark Mode) */
+body:not(.forced-dark-mode).sunny { background: linear-gradient(120deg, #f6d365 0%, #fda085 100%); }
+body:not(.forced-dark-mode).night { background: linear-gradient(to top, #30cfd0 0%, #330867 100%); }
+body:not(.forced-dark-mode).rainy { background: linear-gradient(to bottom, #203a43, #2c5364); }
+body:not(.forced-dark-mode).snowy { background: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%); }
+
+/* ============================================================
+   2. NAVBAR I SIDEBAR
+============================================================ */
+.navbar {
+    position: fixed; top: 0; left: 0; width: 100%;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 25px; z-index: 100;
+    background: rgba(0,0,0,0.1); backdrop-filter: blur(5px);
 }
 
-body.night {
-    background: linear-gradient(to top, #30cfd0 0%, #330867 100%); /* Fiolet/Noc */
+/* LOGO Z GRADIENTEM */
+.logo { color: #fff; font-weight: 800; font-size: 1.5rem; letter-spacing: 0.5px; text-shadow: 0 2px 10px rgba(0,0,0,0.2); display: flex; align-items: center; }
+.logo-accent { 
+    background: linear-gradient(to right, var(--accent-color), #ffffff); 
+    background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+    margin-left: 2px; filter: drop-shadow(0 0 5px rgba(0, 188, 212, 0.5)); 
 }
 
-body.rainy {
-    background: linear-gradient(to bottom, #203a43, #2c5364); /* Ciemny stalowy */
-}
+.hamburger-btn { background: none; border: none; color: #fff; font-size: 32px; cursor: pointer; }
 
-body.snowy {
-    background: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%); /* Jasny zimny */
+/* SIDEBAR */
+.sidebar {
+    position: fixed; top: 0; right: -300px; width: 300px; height: 100%;
+    background: var(--sidebar-bg); color: var(--sidebar-text); padding: 25px;
+    z-index: 200; transition: right 0.3s ease; box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    display: flex; flex-direction: column;
 }
+.sidebar.active { right: 0; }
+.sidebar-header { display: flex; justify-content: space-between; margin-bottom: 30px; font-size: 1.2rem; font-weight: 600; }
+.close-btn { background: none; border: none; font-size: 28px; cursor: pointer; color: var(--sidebar-text); }
 
-/* --- 3. KARTA (GLASSMORPHISM) --- */
+.menu-list { list-style: none; flex: 1; overflow-y: auto; }
+.menu-list li { margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+.clickable-li { cursor: pointer; transition: opacity 0.2s; }
+.clickable-li:hover { opacity: 0.7; }
+
+.menu-item-text { display: flex; align-items: center; gap: 10px; font-size: 1rem; }
+.menu-item-text i { color: var(--accent-color); font-size: 22px; }
+
+/* TOGGLES */
+.unit-toggle { background: #eee; border-radius: 20px; padding: 3px; display: flex; }
+body.forced-dark-mode .unit-toggle { background: #333; }
+.unit-btn { border: none; background: none; padding: 6px 12px; border-radius: 15px; cursor: pointer; font-weight: 600; color: #666; }
+.unit-btn.active { background: #fff; color: #000; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+body.forced-dark-mode .unit-btn.active { background: #555; color: #fff; }
+
+.switch { position: relative; display: inline-block; width: 50px; height: 26px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px; }
+.slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+input:checked + .slider { background-color: var(--accent-color); }
+input:checked + .slider:before { transform: translateX(24px); }
+
+/* FAVORITES */
+.favorites-section { display: block !important; margin-top: 20px; border-top: 1px solid #ddd; padding-top: 20px; }
+.favorites-list { list-style: none; margin-top: 10px; padding-left: 5px; }
+.favorites-list li { margin-bottom: 8px; cursor: pointer; font-size: 0.95rem; color: #666; justify-content: space-between; }
+body.forced-dark-mode .favorites-list li { color: #aaa; }
+.favorites-list li:hover span { color: var(--accent-color); }
+.remove-fav { color: #ff5252; opacity: 0.7; font-size: 18px; padding: 5px; }
+.remove-fav:hover { opacity: 1; }
+.empty-msg { font-size: 0.8rem; font-style: italic; color: #999; cursor: default; }
+
+.sidebar-footer { text-align: center; color: #888; font-size: 0.8rem; margin-top: 20px; }
+.sidebar-footer a { text-decoration: none; color: var(--accent-color); font-weight: 600; }
+.overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 150; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+.overlay.active { opacity: 1; pointer-events: auto; }
+
+/* ============================================================
+   3. GŁÓWNA KARTA
+============================================================ */
 .card {
-    /* Efekt mrożonego szkła */
-    background: rgba(255, 255, 255, 0.15); 
-    backdrop-filter: blur(15px);           /* Rozmycie tła */
-    -webkit-backdrop-filter: blur(15px);   /* Dla Safari */
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Delikatna obwódka */
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2); /* Cień pod kartą */
-    
-    width: 100%;
-    max-width: 470px;
-    border-radius: 24px;
-    padding: 40px 35px;
-    text-align: center;
-    color: #fff; /* Cały tekst w karcie biały */
+    background: var(--card-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--card-border); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    width: 100%; max-width: 470px; border-radius: 24px; padding: 35px;
+    text-align: center; color: var(--text-color); transition: all 0.3s;
 }
 
-/* --- 4. DATA I CZAS --- */
-.date-container {
-    text-align: left;
-    margin-bottom: 25px;
-}
+.date-container { text-align: left; margin-bottom: 20px; }
+#date-day { font-size: 24px; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+#date-full { font-size: 14px; opacity: 0.9; }
 
-#date-day {
-    font-size: 26px;
-    font-weight: 700;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-#date-full {
-    font-size: 15px;
-    opacity: 0.9;
-    font-weight: 300;
-}
-
-/* --- 5. WYSZUKIWARKA --- */
+/* WYSZUKIWARKA (Z PRZYCISKIEM GPS) */
 .search-box {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 30px;
-    background: rgba(255, 255, 255, 0.3); /* Półprzezroczyste tło paska */
-    border-radius: 30px;
-    padding: 10px 20px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    width: 100%;
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px;
+    background: var(--search-bg); border-radius: 30px; padding: 5px 10px; 
+    border: 1px solid var(--card-border); width: 100%;
 }
-
 .search-box input {
-   border: 0;
-    outline: 0;
-    background: transparent;
-    color: #333;
-    font-size: 18px;
-    
-    /* --- TE TRZY LINIJKI TO NAPRAWA --- */
-    flex: 1;          /* Input zajmuje całą dostępną przestrzeń */
-    width: 100%;      /* Ale nie więcej niż 100% */
-    min-width: 0;     /* 🔥 KLUCZOWE: Pozwala inputowi się skurczyć, gdy brakuje miejsca */
-    /* ---------------------------------- */
-    
-    margin-right: 10px; /* Zmniejszmy też margines z 15px na 10px dla oszczędności miejsca */
-    font-weight: 500;
+    border: 0; outline: 0; background: transparent; color: var(--text-color);
+    font-size: 16px; flex: 1; min-width: 0; margin-right: 5px; padding-left: 5px;
 }
+.search-box input::placeholder { color: rgba(255, 255, 255, 0.7); }
 
-.search-box input::placeholder {
-    color: rgba(255, 255, 255, 0.8); /* Jasny placeholder */
-}
-
+/* Styl dla guzików w wyszukiwarce (Lupa i GPS) */
 .search-box button {
-    border: 0;
-    outline: 0;
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    transition: all 0.3s;
-    color: #333;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
+    border: 0; outline: 0; background: rgba(255, 255, 255, 0.7); border-radius: 50%;
+    width: 36px; height: 36px; cursor: pointer; color: #333; 
+    display: flex; align-items: center; justify-content: center; font-size: 18px; 
+    flex-shrink: 0; /* Ważne dla RWD */
+}
+.search-box button:hover { background: #fff; transform: scale(1.05); }
+
+/* DANE POGODOWE */
+.weather-icon { width: 140px; margin: 10px 0; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2)); }
+.weather-content { display: none; animation: slideIn 0.8s ease; }
+.temp { font-size: 68px; font-weight: 800; text-shadow: 0 4px 10px rgba(0,0,0,0.15); line-height: 1; }
+.feels-like { font-size: 16px; opacity: 0.9; margin-bottom: 25px; margin-top: 5px; }
+
+.city-container { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+.city { font-size: 28px; font-weight: 600; text-shadow: 0 2px 5px rgba(0,0,0,0.1); margin: 0; }
+
+.action-btn {
+    background: var(--search-bg); border: 1px solid var(--card-border); border-radius: 50%;
+    width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+    color: var(--text-color); cursor: pointer; transition: all 0.2s; font-size: 18px;
+}
+.action-btn:hover { background: rgba(255,255,255,0.4); transform: scale(1.1); }
+.action-btn.favorite-active { color: #ffd700; border-color: rgba(255, 215, 0, 0.5); background: rgba(0,0,0,0.2); }
+
+/* DETALE (3 KOLUMNY) */
+.details { display: flex; justify-content: space-between; margin-top: 10px; gap: 10px; }
+.col {
+    display: flex; align-items: center; background: rgba(0, 0, 0, 0.1);
+    padding: 12px; border-radius: 15px; 
+    width: 100%; color: var(--text-color); flex: 1;
+}
+.col i { font-size: 28px; margin-right: 10px; }
+.humidity, .wind, .aqi-value { font-size: 18px; font-weight: 700; }
+.col p:last-child { font-size: 11px; opacity: 0.8; }
+
+/* KOLORY AQI */
+.aqi-1 { color: var(--aqi-good); } .aqi-2 { color: var(--aqi-fair); } .aqi-3 { color: var(--aqi-moderate); } .aqi-4 { color: var(--aqi-poor); } .aqi-5 { color: var(--aqi-very-poor); }
+
+.error-message { display: none; background: rgba(255, 82, 82, 0.8); color: #fff; padding: 15px; border-radius: 15px; margin-bottom: 20px; }
+
+/* PROGNOZA 5 DNI */
+.forecast-section { margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; }
+.forecast-title { text-align: left; font-size: 1rem; margin-bottom: 15px; opacity: 0.9; }
+.forecast-container { display: flex; gap: 10px; justify-content: space-between; overflow-x: auto; padding-bottom: 5px; }
+.forecast-container::-webkit-scrollbar { display: none; }
+.forecast-item { background: rgba(0,0,0,0.1); border-radius: 15px; padding: 10px; min-width: 60px; display: flex; flex-direction: column; align-items: center; color: var(--text-color); }
+.forecast-day { font-size: 0.9rem; font-weight: 600; margin-bottom: 5px; }
+.forecast-icon { width: 35px; height: 35px; margin-bottom: 5px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); }
+.forecast-temp { font-size: 1rem; font-weight: 700; }
+
+/* ============================================================
+   4. BANER COOKIES
+============================================================ */
+.cookie-banner {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    width: 90%; max-width: 600px;
+    background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 15px 25px;
+    display: none; align-items: center; justify-content: space-between; gap: 20px;
+    z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.3); animation: slideUp 0.5s ease-out;
+}
+.cookie-content p { color: #eee; font-size: 0.9rem; line-height: 1.4; text-align: left; }
+.cookie-btn {
+    background: var(--accent-color); color: #fff; border: none; padding: 10px 20px;
+    border-radius: 20px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: transform 0.2s, box-shadow 0.2s; font-size: 0.9rem;
+}
+.cookie-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px rgba(0, 188, 212, 0.4); }
+
+/* ANIMACJE */
+@keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+.anim-float { animation: float 4s ease-in-out infinite; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.anim-spin { animation: spin 20s linear infinite; }
+@keyframes rain-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+.anim-rain { animation: rain-bounce 1.5s ease-in-out infinite; }
+@keyframes spin-once { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.spin-animation { animation: spin-once 0.8s ease-in-out; }
+@keyframes slideUp { from { transform: translate(-50%, 100px); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
+
+/* RWD - Małe telefony (Poprawki) */
+@media (max-width: 400px) {
+    .card { padding: 25px 20px; }
+    /* Pionowe kolumny na detale */
+    .col { flex-direction: column; text-align: center; padding: 10px 5px; }
+    .col i { margin: 0 0 5px 0; font-size: 24px; }
+    /* Input ma mniej miejsca przez przycisk GPS */
+    .search-box { padding: 5px 8px; }
+    .search-box input { font-size: 14px; margin-right: 5px; }
+    .temp { font-size: 60px; }
 }
 
-.search-box button:hover {
-    background: #fff;
-    transform: scale(1.05);
+@media (max-width: 500px) {
+    .cookie-banner { flex-direction: column; bottom: 10px; padding: 15px; text-align: center; }
+    .cookie-content p { text-align: center; margin-bottom: 10px; }
+    .cookie-btn { width: 100%; }
 }
-
-/* --- 6. GŁÓWNE DANE POGODOWE --- */
-.weather-icon {
-    width: 150px;
-    margin: 10px 0;
-    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2)); /* Cień pod ikoną */
-}
-
-.weather-content {
-    display: none; /* Domyślnie ukryte, JS to odkrywa */
-    animation: slideIn 0.8s ease;
-}
-
-.temp {
-    font-size: 72px;
-    font-weight: 800;
-    margin-bottom: 5px;
-    text-shadow: 0 4px 10px rgba(0,0,0,0.15);
-}
-
-.feels-like {
-    font-size: 18px;
-    font-weight: 400;
-    opacity: 0.9;
-    margin-bottom: 25px;
-}
-
-/* --- 7. MIASTO I PRZYCISK ODŚWIEŻANIA --- */
-.city-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 40px;
-}
-
-.city {
-    font-size: 32px;
-    font-weight: 600;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.refresh-btn {
-    background: rgba(255,255,255,0.2);
-    border: 1px solid rgba(255,255,255,0.3);
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    cursor: pointer;
-    transition: all 0.3s;
-    font-size: 20px;
-}
-
-.refresh-btn:hover {
-    background: rgba(255,255,255,0.4);
-}
-
-/* --- 8. SZCZEGÓŁY (Wilgotność / Wiatr) --- */
-.details {
+.astro-row {
     display: flex;
     justify-content: space-between;
-    padding: 0 10px;
-    margin-top: 20px;
+    gap: 10px;
+    margin-top: 10px;
 }
 
-.col {
+.astro-item {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    padding: 10px 15px;
+    flex: 1; /* Dzielą się miejscem po równo */
     display: flex;
     align-items: center;
+    justify-content: center; /* Wyśrodkowanie */
+    gap: 15px;
+    color: var(--text-color);
+}
+
+.astro-item i {
+    font-size: 28px;
+    opacity: 0.9;
+}
+
+/* Wyrównanie tekstu wewnątrz */
+.astro-item div {
     text-align: left;
-    background: rgba(0, 0, 0, 0.1); /* Lekko ciemniejsze tło dla detali */
-    padding: 15px;
-    border-radius: 15px;
-    width: 48%;
 }
 
-.col i {
-    font-size: 32px;
-    margin-right: 15px;
-}
-
-.humidity, .wind {
-    font-size: 20px;
+.astro-time {
+    font-size: 16px;
     font-weight: 700;
+    line-height: 1.2;
 }
 
-.col p:last-child {
-    font-size: 12px;
+.astro-label {
+    font-size: 11px;
     opacity: 0.8;
 }
 
-/* --- 9. KOMUNIKAT BŁĘDU --- */
-.error-message {
-    display: none;
-    background: rgba(255, 82, 82, 0.8);
-    color: #fff;
-    padding: 15px;
-    border-radius: 15px;
-    margin-bottom: 20px;
-    font-weight: 600;
-    border: 1px solid rgba(255,255,255,0.3);
-}
-
-/* --- 10. ANIMACJE --- */
-
-/* Pojawianie się karty */
-@keyframes slideIn {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Pływanie (Chmury) */
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-12px); }
-    100% { transform: translateY(0px); }
-}
-.anim-float { animation: float 4s ease-in-out infinite; }
-
-/* Obrót (Słońce) */
-@keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-.anim-spin { animation: spin 20s linear infinite; }
-
-/* Deszcz (Skakanie) */
-@keyframes rain-bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(6px); }
-}
-.anim-rain { animation: rain-bounce 1.5s ease-in-out infinite; }
-
-/* Pojedynczy obrót (Odświeżanie) */
-@keyframes spin-once {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-.spin-animation { animation: spin-once 0.8s ease-in-out; }
-
-
-@media (max-width: 400px) {
-    
-
-    .search-box {
-        padding: 5px 10px !important;
-        width: 100% !important;
+/* Poprawka dla małych ekranów - żeby się nie ściskało */
+@media (max-width: 350px) {
+    .astro-item {
+        padding: 10px;
+        gap: 8px;
     }
-
-    .search-box input {
-        font-size: 15px !important;
-        margin-right: 5px !important;
-        flex: 1;
-        min-width: 0;
-    }
-
-    .search-box button {
-        width: 32px !important;
-        height: 32px !important;
-        font-size: 16px !important;
-        flex-shrink: 0;
-        padding: 0;
-    }
-
-    
-    .col {
-        flex-direction: column; 
-        justify-content: center;
-        text-align: center;
-        padding: 15px 5px !important; 
-    }
-
- 
-    .col i {
-        margin-right: 0 !important; 
-        margin-bottom: 8px;         
-        font-size: 28px !important; 
-    }
-
-  
-    .humidity, .wind {
-        font-size: 18px !important;
-    }
-
-    .col p:last-child {
-        font-size: 11px !important; 
+    .astro-item i {
+        font-size: 24px;
     }
 }
