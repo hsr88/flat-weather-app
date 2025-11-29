@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flat Weather</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+
+    <div class="card">
+        <div class="search-box">
+            <input type="text" id="city-input" placeholder="Wpisz miasto (np. Warszawa)...">
+            <button id="search-btn">
+                <i class="ph ph-magnifying-glass"></i>
+            </button>
+        </div>
+<div class="date-container">
+    <p id="date-day">Poniedziałek</p>
+    <p id="date-full">29 listopada 2025</p>
+</div>
+        <div class="error-message" id="error-msg">
+            <p>Nie znaleziono takiego miasta!</p>
+        </div>
+
+        <div class="weather-content" id="weather-content">
+            <img src="images/clouds.png" class="weather-icon" id="weather-icon">
+            <h1 class="temp" id="temp">22°c</h1>
+<p class="feels-like">Odczuwalna: <span id="feels-like">--</span>°c</p>
+            <div class="city-container">
+    <h2 class="city" id="city">Miasto</h2>
+    <button id="refresh-btn" class="refresh-btn" title="Odśwież pogodę">
+        <i class="ph ph-arrows-clockwise"></i>
+    </button>
+</div>
+            
+
+            <div class="details">
+                <div class="col">
+                    <i class="ph ph-drop"></i>
+                    <div>
+                        <p class="humidity" id="humidity">50%</p>
+                        <p>Wilgotność</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <i class="ph ph-wind"></i>
+                    <div>
+                        <p class="wind" id="wind">15 km/h</p>
+                        <p>Wiatr</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
