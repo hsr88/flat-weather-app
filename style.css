@@ -81,6 +81,7 @@ body.snowy {
     border-radius: 30px;
     padding: 10px 20px;
     border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 100%;
 }
 
 .search-box input {
@@ -268,4 +269,5 @@ body.snowy {
     .weather-icon { width: 120px; }
     .col { padding: 10px; }
     .col i { font-size: 24px; }
+    .search-box { padding: 10px 15px; }
 }
