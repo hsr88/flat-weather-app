@@ -268,29 +268,51 @@ body.snowy {
 }
 .spin-animation { animation: spin-once 0.8s ease-in-out; }
 
-/* --- POPRAWKA FINALNA DLA MOBILKI --- */
+
 @media (max-width: 400px) {
     
-    /* 1. Zmniejszamy "napompowanie" paska, żeby zyskać miejsce */
+
     .search-box {
-        padding: 5px 10px !important; /* Mniej powietrza w środku */
+        padding: 5px 10px !important;
         width: 100% !important;
     }
 
-    /* 2. Zmniejszamy czcionkę i margines, żeby tekst się zmieścił */
     .search-box input {
-        font-size: 15px !important; /* Mniejsza czcionka (było 18px) */
-        margin-right: 5px !important; /* Mniejszy odstęp od lupy */
+        font-size: 15px !important;
+        margin-right: 5px !important;
         flex: 1;
-        min-width: 0; /* To musi zostać */
+        min-width: 0;
     }
 
-    /* 3. Blokujemy przycisk, żeby miał stały rozmiar i nie uciekał */
     .search-box button {
-        width: 32px !important; /* Troszkę mniejszy guzik */
+        width: 32px !important;
         height: 32px !important;
-        font-size: 16px !important; /* Mniejsza ikonka lupy */
-        flex-shrink: 0; /* 🔥 KLUCZOWE: Zabrania guzikowi zmieniać rozmiar/uciekac */
+        font-size: 16px !important;
+        flex-shrink: 0;
         padding: 0;
+    }
+
+    
+    .col {
+        flex-direction: column; 
+        justify-content: center;
+        text-align: center;
+        padding: 15px 5px !important; 
+    }
+
+ 
+    .col i {
+        margin-right: 0 !important; 
+        margin-bottom: 8px;         
+        font-size: 28px !important; 
+    }
+
+  
+    .humidity, .wind {
+        font-size: 18px !important;
+    }
+
+    .col p:last-child {
+        font-size: 11px !important; 
     }
 }
