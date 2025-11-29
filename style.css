@@ -268,12 +268,29 @@ body.snowy {
 }
 .spin-animation { animation: spin-once 0.8s ease-in-out; }
 
-/* RWD: Dostosowanie do małych telefonów */
+/* --- POPRAWKA FINALNA DLA MOBILKI --- */
 @media (max-width: 400px) {
-    .card { padding: 30px 20px; }
-    .temp { font-size: 60px; }
-    .weather-icon { width: 120px; }
-    .col { padding: 10px; }
-    .col i { font-size: 24px; }
-    .search-box { padding: 10px 15px; }
+    
+    /* 1. Zmniejszamy "napompowanie" paska, żeby zyskać miejsce */
+    .search-box {
+        padding: 5px 10px !important; /* Mniej powietrza w środku */
+        width: 100% !important;
+    }
+
+    /* 2. Zmniejszamy czcionkę i margines, żeby tekst się zmieścił */
+    .search-box input {
+        font-size: 15px !important; /* Mniejsza czcionka (było 18px) */
+        margin-right: 5px !important; /* Mniejszy odstęp od lupy */
+        flex: 1;
+        min-width: 0; /* To musi zostać */
+    }
+
+    /* 3. Blokujemy przycisk, żeby miał stały rozmiar i nie uciekał */
+    .search-box button {
+        width: 32px !important; /* Troszkę mniejszy guzik */
+        height: 32px !important;
+        font-size: 16px !important; /* Mniejsza ikonka lupy */
+        flex-shrink: 0; /* 🔥 KLUCZOWE: Zabrania guzikowi zmieniać rozmiar/uciekac */
+        padding: 0;
+    }
 }
