@@ -1,4 +1,4 @@
-const apiKey = "08420062c0807181ff8fb08245276187"; 
+const apiKey = "XXXXXXX"; 
 const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&lang=pl";
 
 // ============================================================
@@ -201,4 +201,5 @@ function loadDefaultOrGPS() {
 }
 
 // Uruchom przy starcie strony
+
 window.addEventListener("load", loadDefaultOrGPS);
