@@ -5,7 +5,7 @@
 
 Nowoczesna, w pełni responsywna aplikacja pogodowa wykorzystująca **OpenWeatherMap API**. Projekt wyróżnia się stylem **Glassmorphism** (efekt mrożonego szkła) oraz dynamicznymi tłami, które zmieniają się w zależności od pory dnia i warunków atmosferycznych.
 
-👉 **[ZOBACZ DEMO ONLINE (LIVE PREVIEW)](TUTAJ_WKLEJ_LINK_DO_GITHUB_PAGES)**
+👉 **[ZOBACZ DEMO ONLINE (LIVE PREVIEW)](https://hsr88.github.io/flat-weather-app/)**
 
 ---
 
