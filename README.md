@@ -50,7 +50,7 @@ Jeśli chcesz pobrać ten projekt na swój komputer:
 
 1.  Sklonuj repozytorium:
     ```bash
-    git clone [https://github.com/hsr88/flat-weather-app.git](https://github.com/TWOJ-NICK/flat-weather-app.git)
+    git clone [https://github.com/hsr88/flat-weather-app.git](https://github.com/hsr88/flat-weather-app.git)
     ```
 2.  Otwórz folder w edytorze kodu (np. VS Code).
 3.  **Ważne:** Aby działała geolokalizacja, użyj rozszerzenia **Live Server** (lub innego lokalnego serwera), ponieważ przeglądarki blokują GPS dla plików otwieranych bezpośrednio z dysku (`file://`).
