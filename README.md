@@ -21,7 +21,7 @@ Aplikacja została zbudowana jako rozwiązanie "Privacy First" – bez śledzeni
 * **🎨 Dynamiczny Design:** Tła zmieniające się w zależności od pory dnia i pogody (Glassmorphism UI).
 * **🌗 Tryb Ciemny:** Pełne wsparcie dla Dark Mode.
 * **🌅 Astronomia:** Dokładne czasy wschodu i zachodu słońca.
-* * **👔 Smart Outfit Assistant:** Inteligentny asystent ubioru, który analizuje temperaturę odczuwalną, wiatr i opady, aby doradzić Ci, co na siebie włożyć (baza ponad 100 unikalnych tekstów).
+* **👔 Smart Outfit Assistant:** Inteligentny asystent ubioru, który analizuje temperaturę odczuwalną, wiatr i opady, aby doradzić Ci, co na siebie włożyć (baza ponad 100 unikalnych tekstów).
 * **💾 Personalizacja:** Zapisywanie ulubionych miast i ustawień (jednostki °C/°F) w pamięci urządzenia.
 
 ---
