@@ -55,4 +55,4 @@ Kod źródłowy, projekt graficzny oraz nazwa aplikacji są własnością intele
 Aplikacja służy jako projekt demonstracyjny w portfolio autora oraz jako produkt komercyjny.
 
 ---
-**Kontakt:** [Twój Profil GitHub](https://github.com/hsr88)
+**Kontakt:** [GitHub](https://github.com/hsr88)
