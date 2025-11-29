@@ -85,13 +85,19 @@ body.snowy {
 }
 
 .search-box input {
-    border: 0;
+   border: 0;
     outline: 0;
     background: transparent;
-    color: #333; /* Ciemny tekst wpisywania dla czytelności */
+    color: #333;
     font-size: 18px;
-    flex: 1;
-    margin-right: 15px;
+    
+    /* --- TE TRZY LINIJKI TO NAPRAWA --- */
+    flex: 1;          /* Input zajmuje całą dostępną przestrzeń */
+    width: 100%;      /* Ale nie więcej niż 100% */
+    min-width: 0;     /* 🔥 KLUCZOWE: Pozwala inputowi się skurczyć, gdy brakuje miejsca */
+    /* ---------------------------------- */
+    
+    margin-right: 10px; /* Zmniejszmy też margines z 15px na 10px dla oszczędności miejsca */
     font-weight: 500;
 }
 
